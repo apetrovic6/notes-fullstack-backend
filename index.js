@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+
 const { mongo } = require("./config/keys");
 const notes = require("./routes/notes");
 
@@ -11,7 +12,7 @@ app.use(express.json());
 mongoose
   .connect(mongo, { useNewUrlParser: true }, { useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("Couldnt connect to mongo", err));
+  .catch((err) => console.error("Couldn't connect to mongo", err));
 
 app.use("/api/notes", notes);
 

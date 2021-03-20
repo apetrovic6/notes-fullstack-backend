@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    await Note.findById(req.params._id).then((foundNotes) =>
+    await Note.findById(req.params.id).then((foundNotes) =>
       res.json(foundNotes)
     );
   } catch (err) {
@@ -43,4 +43,5 @@ router.delete("/:id", async (req, res) => {
 
   res.send(note);
 });
+
 module.exports = router;
