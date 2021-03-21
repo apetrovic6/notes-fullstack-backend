@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const { mongo } = require("./config/keys");
 const notes = require("./routes/notes");
+const user = require("./routes/users");
 
 const app = express();
 app.use(cors());
@@ -14,7 +15,9 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Couldn't connect to mongo", err));
 
-app.use("/api/notes", notes);
+app.use("/api/Notes", notes);
+
+app.use("/api/Users", user);
 
 app.get("/", (req, res) => {
   res.send("It werks");

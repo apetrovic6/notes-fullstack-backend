@@ -11,6 +11,14 @@ const noteSchema = new mongoose.Schema({
     type: String,
     maxLength: 10000,
   },
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const Note = mongoose.model("Note", noteSchema);
