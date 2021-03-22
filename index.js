@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const auth = require("./routes/auth");
 
 const { mongo } = require("./config/keys");
 const notes = require("./routes/notes");
@@ -16,8 +17,8 @@ mongoose
   .catch((err) => console.error("Couldn't connect to mongo", err));
 
 app.use("/api/Notes", notes);
-
 app.use("/api/Users", user);
+app.use("/api/auth", auth);
 
 app.get("/", (req, res) => {
   res.send("It werks");

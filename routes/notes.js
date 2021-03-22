@@ -1,12 +1,13 @@
+const auth = require("../middleware/auth");
 const { Note } = require("../models/note");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  Note.find().then((foundNotes) => res.json(foundNotes));
+router.get("/", auth, async (req, res) => {
+  await Note.find(req.query).then((foundNotes) => res.json(foundNotes));
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   try {
     await Note.findById(req.params.id && req.params.usr).then((foundNotes) =>
       res.json(foundNotes)
@@ -16,7 +17,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/create", async (req, res) => {
+router.post("/create", auth, async (req, res) => {
   let note = new Note({
     title: req.body.title,
     content: req.body.content,
@@ -26,7 +27,7 @@ router.post("/create", async (req, res) => {
   res.send(note);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const note = await Note.findByIdAndUpdate(
     req.params.id,
     {
@@ -39,7 +40,7 @@ router.put("/:id", async (req, res) => {
   res.send(note);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   const note = await Note.findByIdAndRemove(req.params.id);
 
   res.send(note);
