@@ -1,15 +1,11 @@
 const auth = require("../middleware/auth");
-const { Note } = require("../models/note");
+const { Note, validateNote } = require("../models/note");
 const express = require("express");
 const router = express.Router();
 
 router.get("/", auth, async (req, res) => {
-  await Note.find(req.query).then((foundNotes) => res.json(foundNotes));
-});
-
-router.get("/:id", auth, async (req, res) => {
   try {
-    await Note.findById(req.params.id && req.params.usr).then((foundNotes) =>
+    await Note.find({ userId: req.query.userId }).then((foundNotes) =>
       res.json(foundNotes)
     );
   } catch (err) {
@@ -17,11 +13,24 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
+router.get("/:noteId", auth, async (req, res) => {
+  try {
+    await Note.find({
+      _id: req.params.noteId,
+    }).then((foundNotes) => res.json(foundNotes));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.post("/create", auth, async (req, res) => {
+  const { error } = validateNote(req.body);
+  if (error) return res.status(404).send(error.details[0].message);
+
   let note = new Note({
     title: req.body.title,
     content: req.body.content,
-    author: req.body.author,
+    userId: req.body.userId,
   });
   note = await note.save();
   res.send(note);
