@@ -35,7 +35,7 @@ The user is able to:
 ## How to start up the project?
 
 You'll have to provide your own config file.
-In the root directory create config folder and create keys.js file in the folder.
+In the root directory create a folder named config and create keys.js file in the folder.
 
 Put this code into the keys.js file.
 ``` bash
