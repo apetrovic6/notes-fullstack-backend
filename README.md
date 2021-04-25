@@ -1,5 +1,5 @@
 # Test it out live: https://notes.antepetrovic.tech
-# Check out the backend code repo: https://github.com/apetrovic6/notes-fullstack-frontend
+# Check out the frontend code repo: https://github.com/apetrovic6/notes-fullstack-frontend
 
 # Notes app 
 The REST API is made with NodeJS and Express.
