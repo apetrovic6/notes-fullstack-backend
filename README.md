@@ -51,6 +51,7 @@ You can put whatever string you want in the jwtToken variable.
 Run the development server:
 
 ```bash
+npm i
 nodemon index.js
 ```
 
